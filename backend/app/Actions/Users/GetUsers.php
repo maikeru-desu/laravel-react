@@ -10,9 +10,10 @@ class GetUsers
     public function handle(array $filters = []): LengthAwarePaginator
     {
         $users = User::query();
+        $users->with('roles');
 
-        if (!empty($filters['roles'])) {
-            $users->role($filters['roles']);
+        if (!empty($filters['role'])) {
+            $users->role($filters['role']);
         }
 
         $users->orderByDesc('created_at');
